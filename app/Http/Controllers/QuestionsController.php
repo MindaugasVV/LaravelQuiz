@@ -57,7 +57,7 @@ class QuestionsController extends Controller
         //Sugeneruojame naujus klausimus atsitiktine tvarka ir patalpiname į masyvą su papildomais atributais
         //kaip id ir status. Status naudojame atskirti klausimus tarp neatsakyto/atsakyto/dabartinio
         $questions_array = array();
-        $rand_questions = Question::where('test_id', $id)->take(10)->inRandomOrder()->get();
+        $rand_questions = Question::where('test_id', $id)->take($this->question_count)->inRandomOrder()->get();
         //Šitokį klausimų saugojimo metodą galima panaudoti ir kuriant mygtuką "Atgal", kadangi sudarytas masyvas turi
         //pagal eiliškumą sudėtus klausimus, ir klausimams atskirti yra naudojamas dvimatis masyvas.
         //tokiu atveju galim tiesiog pasiimt dabartinio klausimo raktą ir jį sumažinti vienu, lengvai gauname ankstesnį klausimą
