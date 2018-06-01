@@ -103,8 +103,8 @@ class QuestionsController extends Controller
 
     public function nextQuestion(Request $request)
     {
-        //Mygtukas next question buvo paspaustas todėl bus atsitiktine tvarka išgautas ir sugeneruoto
-        //klausimu masyvo naujas klausimas su atsakymais
+        //Mygtukas next question buvo paspaustas todėl bus atsitiktine tvarka išgautas ir sugeneruotas
+        // masyvas su nauju klausimu ir atsakymais
         $this->getRandomQuestionID(Session::get('questions'));
         //Pasiimam iš sesijos esantį atsakymų masyvą ir jam priskiriam pakoreaguotą reikšmę, kuri
         //ateina iš naujai atsakyto klausimo.
@@ -114,8 +114,8 @@ class QuestionsController extends Controller
             'answer_id' => $request->answer_id
         ];
         Session::put('answers', $answers_array);
-        //Kadangi index metodas automatiškai tikrina Sessiją, mums tereikia išsaugoti atsakymys ir redirectinti
-        //į pradinį testo puslapi ir viskas bus sugeneruojama automatiškai (Klausimai, atsakymai ir tt)
+        //Kadangi index metodas automatiškai tikrina Sessiją, mums tereikia išsaugoti atsakymus ir redirectinti
+        //į pradinį testo puslapį ir viskas bus sugeneruojama automatiškai (Klausimai, atsakymai ir tt)
         return redirect()->route('testas', $request->test_id);
     }
 
@@ -143,7 +143,7 @@ class QuestionsController extends Controller
         // tam kad Useris negalėtu inputo value reikšmių sukčiaudamas prisirašyti :))
         $answers_id_array = array();
         $points = 0;
-        //Čia vykdoma optimizacija sistemos. Aišku galėjome tiesiog paleisti foreach ir išsitraukti duomenis,
+        //Čia vykdoma sistemos optimizacija. Aišku galėjome tiesiog paleisti foreach ir išsitraukti duomenis,
         // bet tokiu atveju susidarytų mažiausiai 10 SQL užklausų.
         //Todėl pirmiausiai yra susitvarkoma su lokaliais duomenimis.
         //Susiformatuojam sessijos duomenis į tokį masyva kurį galėtume naudoti query užklausai
@@ -173,8 +173,8 @@ class QuestionsController extends Controller
     }
 
     public function formatAnswersArray(){
-        //Ši vieta užduotyje nebuvo nūrodyta, bet norėjosi kažko patrauklaus akiai,
-        // kad aiškiai matytūsi kokie klausimai buvo ir kuriuos Useris suklydo,
+        //Ši vieta užduotyje nebuvo nurodyta, bet norėjosi kažko patrauklaus akiai,
+        // kad aiškiai matytusi kokie klausimai buvo ir kuriuos Useris suklydo,
         //tai čia tiesiog formatuojam sesijoje laikomus atsakymų ID kuriuos veliau naudojam
         //gražiam ir aiškiam atsakymu ir klaidų atvaizdavimui
         //SQL užklausų nebuvo naudota šioje vietoje, todėl krovimo atžvilgiu skirtumo nėra.
@@ -187,7 +187,7 @@ class QuestionsController extends Controller
 
     public function resetTest(){
         //Kadangi resetinant testą mums vistiek reikia žinoti koks visgi tas testas buvo pasirinktas,
-        //negalim tiesiog flushint Sessijos kuri laiko dabartinio testo ID. Tiesiog pravalom
+        //negalim tiesiog flushint Sessijos kuri laiko dabartinio testo ID. Tokiu atvėju mes pravalom
         //sugeneruotus random klausimus ir atsakymus ir visą kitą musų index metodas pats sugeneruos.
         Session::forget('questions');
         Session::forget('answers');
